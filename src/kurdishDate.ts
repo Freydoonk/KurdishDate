@@ -250,9 +250,42 @@ export default class KurdishDate {
         return this.currentDate.primaryDate.valueOf();
     }
 
-    public getFirstWeekDayOfMonth(year: number, month: number): number {
+    public firstWeekDayOfMonth(year?: number, month?: number): number {
+        year = year ? year : this.year();
+        month = month ? month : this.month();
+
         const syncedKurdishDate = this.getSyncedClass();
         return new syncedKurdishDate([year, month, 1]).day();
+    }
+
+    public daysInMonth(year?: number, month?: number): number {
+        year = year ? year : this.year();
+        month = month ? month : this.month();
+        if (this.calendarType === CalendarType.Kurdish || this.calendarType === CalendarType.Persian) {
+            if (month < 1 || month > 12) {
+                return 0;
+            } else if (month < 7) {
+                return 31;
+            } else if (month < 12) {
+                return 30;
+            } else if (this.dateConverter.isSolarLeap(year)) {
+                return 30;
+            }
+
+            return 29;
+        } else if (this.calendarType === CalendarType.Gregorian) {
+            return new Date(year, month, 0).getDate();
+        } else {
+            if (month < 1 || month > 12) {
+                return 0;
+            } else if (month % 2 === 1) {
+                return 30;
+            } else if (month === 12 && this.dateConverter.isIslamicLeap(year)) {
+                return 30;
+            }
+
+            return 29;
+        }
     }
 
     public format(inputString?: string): string {
@@ -631,88 +664,58 @@ export default class KurdishDate {
         return startDate;
     }
 
-    private endOf(key: string): KurdishDate {
-        const syncedKurdishDate = this.getSyncedClass();
-        let endDate: KurdishDate;
+    // private endOf(key: string): KurdishDate {
+    //     const syncedKurdishDate = this.getSyncedClass();
+    //     let endDate: KurdishDate;
 
-        switch (key.toLowerCase()) {
-            case "years":
-            case "year":
-                const days = this.calendar().isLeap ? 30 : 29;
-                endDate = new syncedKurdishDate([this.year(), 12, days, 23, 59, 59]);
-                break;
+    //     switch (key.toLowerCase()) {
+    //         case "years":
+    //         case "year":
+    //             const days = this.calendar().isLeap ? 30 : 29;
+    //             endDate = new syncedKurdishDate([this.year(), 12, days, 23, 59, 59]);
+    //             break;
 
-            case "months":
-            case "month":
-                const monthDays = this.daysInMonth(this.year(), this.month());
-                endDate = new syncedKurdishDate([this.year(), this.month(), monthDays, 23, 59, 59]);
-                break;
+    //         case "months":
+    //         case "month":
+    //             const monthDays = this.daysInMonth(this.year(), this.month());
+    //             endDate = new syncedKurdishDate([this.year(), this.month(), monthDays, 23, 59, 59]);
+    //             break;
 
-            case "days":
-            case "day":
-                endDate = new syncedKurdishDate([this.year(), this.month(), this.date(), 23, 59, 59]);
-                break;
+    //         case "days":
+    //         case "day":
+    //             endDate = new syncedKurdishDate([this.year(), this.month(), this.date(), 23, 59, 59]);
+    //             break;
 
-            case "hours":
-            case "hour":
-                endDate = new syncedKurdishDate([this.year(), this.month(), this.date(), this.hours(), 59, 59]);
-                break;
+    //         case "hours":
+    //         case "hour":
+    //             endDate = new syncedKurdishDate([this.year(), this.month(), this.date(), this.hours(), 59, 59]);
+    //             break;
 
-            case "minutes":
-            case "minute":
-                endDate = new syncedKurdishDate([this.year(), this.month(), this.date()
-                    , this.hours(), this.minutes(), 59]);
-                break;
+    //         case "minutes":
+    //         case "minute":
+    //             endDate = new syncedKurdishDate([this.year(), this.month(), this.date()
+    //                 , this.hours(), this.minutes(), 59]);
+    //             break;
 
-            case "seconds":
-            case "second":
-                endDate = new syncedKurdishDate([this.year(), this.month(), this.date()
-                    , this.hours(), this.minutes(), this.seconds()]);
-                break;
+    //         case "seconds":
+    //         case "second":
+    //             endDate = new syncedKurdishDate([this.year(), this.month(), this.date()
+    //                 , this.hours(), this.minutes(), this.seconds()]);
+    //             break;
 
-            case "weeks":
-            case "week":
-                const weekDayNumber = this.calendar().weekday;
-                endDate = new syncedKurdishDate([this.year(), this.month(), this.date() + (7 - weekDayNumber)]);
-                break;
+    //         case "weeks":
+    //         case "week":
+    //             const weekDayNumber = this.calendar().weekday;
+    //             endDate = new syncedKurdishDate([this.year(), this.month(), this.date() + (7 - weekDayNumber)]);
+    //             break;
 
-            default:
-                endDate = this.clone();
-                break;
-        }
+    //         default:
+    //             endDate = this.clone();
+    //             break;
+    //     }
 
-        return endDate;
-    }
-
-    private daysInMonth(year: number, month: number): number {
-        year = year ? year : this.year();
-        month = month ? month : this.month();
-        if (this.calendarType === CalendarType.Kurdish || this.calendarType === CalendarType.Persian) {
-            if (month < 1 || month > 12) {
-                return 0;
-            } else if (month < 7) {
-                return 31;
-            } else if (month < 12) {
-                return 30;
-            } else if (this.dateConverter.isSolarLeap(year)) {
-                return 30;
-            }
-
-            return 29;
-        } else if (this.calendarType === CalendarType.Gregorian) {
-            return new Date(year, month, 0).getDate();
-        } else {
-            if (month < 1 || month > 12) {
-                return 0;
-            } else if (month % 2 === 1) {
-                return 30;
-            } else if (month === 12 && this.dateConverter.isIslamicLeap(year)) {
-                return 30;
-            }
-
-            return 29;
-        }
-    }
+    //     return endDate;
+    // }
 
     private setupFromGregorianDate(gregorianDate: Date): void {
         this.dateConverter.calcGregorian(

@@ -32,3 +32,6 @@ build/
 dist
 artifacts
 typings
+lib
+lib-esm
+_bundles

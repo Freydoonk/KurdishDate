@@ -85,8 +85,8 @@ describe("kurdishDate Convert function", () => {
     expect(kurdishDate.toUtc().format()).toBe("٢٧١٨-٠١-٢٠ ١٩:٣٠:٠٠ د.ن");
   });
 
-  it("kurdishDate getFirstWeekDayOfMonth()", () => {
-    expect(kurdishDate.getFirstWeekDayOfMonth(kurdishDate.year(), kurdishDate.month()))
+  it("kurdishDate firstWeekDayOfMonth()", () => {
+    expect(kurdishDate.firstWeekDayOfMonth(kurdishDate.year(), kurdishDate.month()))
       .toBe(5);
   });
 

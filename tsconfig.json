@@ -17,7 +17,7 @@
     "noImplicitAny": false,
     "noImplicitThis": false,
     "strictNullChecks": false,
-    "declaration": true
+    "declaration": false,
   },
   "include": [
     "src/**/*",

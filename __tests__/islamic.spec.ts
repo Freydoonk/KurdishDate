@@ -85,8 +85,8 @@ describe("islamicDate Convert function", () => {
     expect(islamicDate.toUtc().format()).toBe("۱۴۳۹-۰۷-۲۳ ۱۹:۳۰:۰۰ ب.ظ");
   });
 
-  it("islamicDate getFirstWeekDayOfMonth()", () => {
-    expect(islamicDate.getFirstWeekDayOfMonth(islamicDate.year(), islamicDate.month()))
+  it("islamicDate firstWeekDayOfMonth()", () => {
+    expect(islamicDate.firstWeekDayOfMonth(islamicDate.year(), islamicDate.month()))
       .toBe(2);
   });
 

@@ -85,8 +85,8 @@ describe("persianDate Convert function", () => {
     expect(persianDate.toUtc().format()).toBe("۱۳۹۷-۰۱-۲۰ ۱۹:۳۰:۰۰ ب.ظ");
   });
 
-  it("persianDate getFirstWeekDayOfMonth()", () => {
-    expect(persianDate.getFirstWeekDayOfMonth(persianDate.year(), persianDate.month()))
+  it("persianDate firstWeekDayOfMonth()", () => {
+    expect(persianDate.firstWeekDayOfMonth(persianDate.year(), persianDate.month()))
       .toBe(5);
   });
 

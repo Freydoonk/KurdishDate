@@ -85,8 +85,8 @@ describe("gregorianDate Convert function", () => {
     expect(gregorianDate.toUtc().format()).toBe("2018-04-09 19:30:00 pm");
   });
 
-  it("gregorianDate getFirstWeekDayOfMonth()", () => {
-    expect(gregorianDate.getFirstWeekDayOfMonth(gregorianDate.year(), gregorianDate.month()))
+  it("gregorianDate firstWeekDayOfMonth()", () => {
+    expect(gregorianDate.firstWeekDayOfMonth(gregorianDate.year(), gregorianDate.month()))
       .toBe(1);
   });
 
