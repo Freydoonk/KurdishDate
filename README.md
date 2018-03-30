@@ -4,6 +4,33 @@ Kurdish Date
 
 Javascript date library for parsing, validating, manipulating, and formatting date.
 
+## Install
+
+```shell
+npm install kurdish-date --save-dev
+yarn add kurdish-date --dev
+```
+
+## Browser
+
+```html
+<script src="node_modules/kurdish-date/lib/kurdishDate.js" type="text/javascript"></script>
+<script src="node_modules/kurdish-date/lib/declarations.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var date = new kurdishDate().toLocale(LocaleType.en).format();  // "2718-01-17 11:20:25 am" //
+</script>
+```
+## Webpack
+```
+require('kurdishDate-date');
+```
+
+## Typescript
+```
+import kurdishDate from "kurdish-date";
+import { CalendarType, LocaleType } from "kurdish-date/lib/declarations";
+```
+
 ## Calendar and locale
 
 ### toCalendar
