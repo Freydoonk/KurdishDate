@@ -21,7 +21,7 @@ describe("kurdishDate Convert function", () => {
     expect(kurdishDate.month()).toBe(1);
   });
 
-  it("kurdishDate date", () => {
+  it("kurdishDate dates", () => {
     expect(kurdishDate.date()).toBe(21);
   });
 
@@ -31,6 +31,26 @@ describe("kurdishDate Convert function", () => {
 
   it("kurdishDate format", () => {
     expect(kurdishDate.format()).toBe("٢٧١٨-٠١-٢١ ٠٠:٠٠:٠٠ ب.ن");
+  });
+
+  it("kurdishDate format(dd)", () => {
+    expect(kurdishDate.format("dd")).toBe("س");
+  });
+
+  it("kurdishDate format(ddd)", () => {
+    expect(kurdishDate.format("ddd")).toBe("سێ");
+  });
+
+  it("kurdishDate format(dddd)", () => {
+    expect(kurdishDate.format("dddd")).toBe("سێشه‌ممه");
+  });
+
+  it("kurdishDate format(w)", () => {
+    expect(kurdishDate.format("w")).toBe("٣");
+  });
+
+  it("kurdishDate format(ww)", () => {
+    expect(kurdishDate.format("ww")).toBe("٠٣");
   });
 
   it("kurdishDate format(X)", () => {
@@ -81,6 +101,10 @@ describe("kurdishDate Convert function", () => {
     expect(kurdishDate.format("YYYY/MM/DD HH:mm:ss Z")).toBe("٢٧١٨/٠١/٢١ ٠٠:٠٠:٠٠ +٠٤:٣٠");
   });
 
+  it("kurdishDate format(dddd, MMMM DD YYYY, h:mm:ss a)", () => {
+    expect(kurdishDate.format("dddd, MMMM DD YYYY, h:mm:ss a")).toBe("سێشه‌ممه, خاکه‌لێوه ٢١ ٢٧١٨, ٠:٠٠:٠٠ ب.ن");
+  });
+
   it("kurdishDate toUtc().format()", () => {
     expect(kurdishDate.toUtc().format()).toBe("٢٧١٨-٠١-٢٠ ١٩:٣٠:٠٠ د.ن");
   });
@@ -95,8 +119,27 @@ describe("kurdishDate Convert function", () => {
       .toBe("2718-01-20 19:30:00 pm");
   });
 
+  it("kurdishDate format(dddd, ha)", () => {
+    expect(kurdishDate.toLocale(LocaleType.ku).format("dddd, ha")).toBe("دووشه‌ممه, ٧د.ن");
+  });
+
   it("kurdishDate toCalendar(CalendarType.Gregorian).format()", () => {
-    expect(kurdishDate.toCalendar(CalendarType.Gregorian).format())
+    expect(kurdishDate.toCalendar(CalendarType.Gregorian).toLocale(LocaleType.en).format())
       .toBe("2018-04-09 19:30:00 pm");
+  });
+
+  it("kurdishDate hour", () => {
+    kurdishDate.hour(9);
+    expect(kurdishDate.hour() === 9).toBe(true);
+  });
+
+  it("kurdishDate minute", () => {
+    kurdishDate.minute(42);
+    expect(kurdishDate.minute() === 42).toBe(true);
+  });
+
+  it("kurdishDate second", () => {
+    kurdishDate.second(40);
+    expect(kurdishDate.second() === 40).toBe(true);
   });
 });
