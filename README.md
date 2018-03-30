@@ -4,18 +4,6 @@ Kurdish Date
 
 Javascript date library for parsing, validating, manipulating, and formatting date.
 
-<<<<<<< HEAD
-<a class="github-button" href="https://github.com/Freydoonk/KurdishDate" data-icon="octicon-star" data-style="mega" data-count-href="/Freydoonk/Kurdishdate/stargazers" data-count-api="/repos/Freydoonk/Kurdishdate#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star Freydoonk/Kurdishdate on GitHub">Star</a>
-<a class="github-button" href="https://github.com/Freydoonk/KurdishDate/issues" data-icon="octicon-issue-opened" data-style="mega" data-count-api="/repos/Freydoonk/Kurdishdate#open_issues_count" data-count-aria-label="# issues on GitHub" aria-label="Issue Freydoonk/Kurdishdate on GitHub">Issue</a>
-<a class="github-button" href="https://github.com/Freydoonk/KurdishDate/fork" data-icon="octicon-repo-forked" data-style="mega" data-count-href="/Freydoonk/Kurdishdate/network" data-count-api="/repos/Freydoonk/Kurdishdate#forks_count" data-count-aria-label="# forks on GitHub" aria-label="Fork Freydoonk/Kurdishdate on GitHub">Fork</a>
-=======
-<a class="github-button" href="https://github.com/babakhani/Kurdishdate" data-icon="octicon-star" data-style="mega" data-count-href="/babakhani/Kurdishdate/stargazers" data-count-api="/repos/babakhani/Kurdishdate#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star babakhani/Kurdishdate on GitHub">Star</a>
-<a class="github-button" href="https://github.com/babakhani/Kurdishdate/issues" data-icon="octicon-issue-opened" data-style="mega" data-count-api="/repos/babakhani/Kurdishdate#open_issues_count" data-count-aria-label="# issues on GitHub" aria-label="Issue babakhani/Kurdishdate on GitHub">Issue</a>
-<a class="github-button" href="https://github.com/babakhani/Kurdishdate/fork" data-icon="octicon-repo-forked" data-style="mega" data-count-href="/babakhani/Kurdishdate/network" data-count-api="/repos/babakhani/Kurdishdate#forks_count" data-count-aria-label="# forks on GitHub" aria-label="Fork babakhani/Kurdishdate on GitHub">Fork</a>
-
->>>>>>> d4ad4d8efd7920ee444eab4e48cc4c1b639bb35f
-
-
 ## Calendar and locale
 
 ### toCalendar
