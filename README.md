@@ -2,7 +2,7 @@
 Kurdish Date
 ==============
 
-Javascript date library for parsing, validating, manipulating, and formatting date.
+Javascript date library for parsing, validating, manipulating, and formatting date in Kurdish, Persian, Islamic and Gregorian, based on [PersianDate](https://github.com/babakhani/PersianDate)
 
 ## Install
 
@@ -21,15 +21,16 @@ yarn add kurdish-date --dev
 </script>
 ```
 ## Webpack
-```
+```javascript
 require('kurdishDate-date');
 ```
 
 ## Typescript
-```
+```javascript
 import kurdishDate from "kurdish-date";
 import { CalendarType, LocaleType } from "kurdish-date/lib/declarations";
 ```
+
 
 ## Calendar and locale
 
@@ -421,7 +422,7 @@ This is the most robust display option. It takes a string of tokens and replaces
 | Day of month      | D            | ۱ ۲ ... ۳۰ ۳۱|
 |                   | DD           | ۰۱ ۰۲ ... ۳۰ ۳۱|
 | Day of year       | DDD          | ۱ ۲ ... ۳۶۴ ۳۶۵|
-|                   | d            | ۰ ۱ ... ۵ ۶|
+| Day of week       | d            | ۰ ۱ ... ۵ ۶|
 |                   | dd            | ش ی ... ه|
 |                   | ddd       |شه‌ممه یه‌ک دوو ... هه‌ینی|
 |                   | dddd    |شه‌ممه یه‌کشه‌ممه ... هه‌ینی|

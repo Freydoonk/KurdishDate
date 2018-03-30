@@ -1,7 +1,7 @@
 {
   "name": "kurdish-date",
   "version": "1.0.0",
-  "description": "",
+  "description": "Javascript date library for parsing, validating, manipulating, and formatting date in Kurdish, Persian, Islamic and Gregorian.",
   "engineStrict": true,
   "engines": {
     "node": ">= 8.9.0"
@@ -33,5 +33,20 @@
   },
   "dependencies": {
     "tslib": "~1.9.0"
-  }
+  },
+  "main": "./lib/kurdishDate.js",
+  "types" : "./lib/kurdishDate.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Freydoonk/KurdishDate.git"
+  },
+  "author": "Fereydoon Karimi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Freydoonk/KurdishDate/issues"
+  },
+  "homepage": "https://github.com/Freydoonk/KurdishDate#readme"
 }
