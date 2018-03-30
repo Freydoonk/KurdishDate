@@ -1,6 +1,6 @@
 {
   "name": "kurdish-date",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Javascript date library for parsing, validating, manipulating, and formatting date in Kurdish, Persian, Islamic and Gregorian.",
   "engineStrict": true,
   "engines": {

@@ -461,7 +461,7 @@ This is the most robust display option. It takes a string of tokens and replaces
 
 ### Default format
 
-ISO8601 format ```YYYY-MM-DDTHH:mm:ssZ```` => "٢٧١٨-٠١-٢١ ٠٠:٠٠:٠٠ ب.ن"
+ISO8601 format ```YYYY-MM-DDTHH:mm:ssZ```` =>  "٢٧١٨-٠١-١٧T٠٠:٠٠:٠٠+٠٣:٣٠"
 
 
 ### Unix Offset (milliseconds)
