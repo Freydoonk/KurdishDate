@@ -30,7 +30,7 @@ describe("persianDate Convert function", () => {
   });
 
   it("persianDate format", () => {
-    expect(persianDate.format()).toBe("۱۳۹۷-۰۱-۲۱ ۰۰:۰۰:۰۰ ق.ظ");
+    expect(persianDate.format()).toBe("۱۳۹۷-۰۱-۲۱T۰۰:۰۰:۰۰+۰۴:۳۰");
   });
 
   it("persianDate format(X)", () => {
@@ -82,7 +82,7 @@ describe("persianDate Convert function", () => {
   });
 
   it("persianDate toUtc().format()", () => {
-    expect(persianDate.toUtc().format()).toBe("۱۳۹۷-۰۱-۲۰ ۱۹:۳۰:۰۰ ب.ظ");
+    expect(persianDate.toUtc().format()).toBe("۱۳۹۷-۰۱-۲۰T۱۹:۳۰:۰۰+۰۴:۳۰");
   });
 
   it("persianDate firstWeekDayOfMonth()", () => {
@@ -92,12 +92,12 @@ describe("persianDate Convert function", () => {
 
   it("persianDate toLocale(LocaleType.en).format()", () => {
     expect(persianDate.toLocale(LocaleType.en).format())
-      .toBe("1397-01-20 19:30:00 pm");
+      .toBe("1397-01-20T19:30:00+04:30");
   });
 
   it("persianDate toCalendar(CalendarType.Gregorian).format()", () => {
     expect(persianDate.toCalendar(CalendarType.Gregorian).format())
-      .toBe("2018-04-09 19:30:00 pm");
+      .toBe("2018-04-09T19:30:00+04:30");
   });
 
   it("persianDate toDate().valueOf()", () => {

@@ -30,7 +30,7 @@ describe("kurdishDate Convert function", () => {
   });
 
   it("kurdishDate format", () => {
-    expect(kurdishDate.format()).toBe("٢٧١٨-٠١-٢١ ٠٠:٠٠:٠٠ ب.ن");
+    expect(kurdishDate.format()).toBe("٢٧١٨-٠١-٢١T٠٠:٠٠:٠٠+٠٤:٣٠");
   });
 
   it("kurdishDate format(dd)", () => {
@@ -106,7 +106,7 @@ describe("kurdishDate Convert function", () => {
   });
 
   it("kurdishDate toUtc().format()", () => {
-    expect(kurdishDate.toUtc().format()).toBe("٢٧١٨-٠١-٢٠ ١٩:٣٠:٠٠ د.ن");
+    expect(kurdishDate.toUtc().format()).toBe("٢٧١٨-٠١-٢٠T١٩:٣٠:٠٠+٠٤:٣٠");
   });
 
   it("kurdishDate firstWeekDayOfMonth()", () => {
@@ -116,7 +116,7 @@ describe("kurdishDate Convert function", () => {
 
   it("kurdishDate toLocale(LocaleType.en).format()", () => {
     expect(kurdishDate.toLocale(LocaleType.en).format())
-      .toBe("2718-01-20 19:30:00 pm");
+      .toBe("2718-01-20T19:30:00+04:30");
   });
 
   it("kurdishDate format(dddd, ha)", () => {
@@ -125,7 +125,7 @@ describe("kurdishDate Convert function", () => {
 
   it("kurdishDate toCalendar(CalendarType.Gregorian).format()", () => {
     expect(kurdishDate.toCalendar(CalendarType.Gregorian).toLocale(LocaleType.en).format())
-      .toBe("2018-04-09 19:30:00 pm");
+      .toBe("2018-04-09T19:30:00+04:30");
   });
 
   it("kurdishDate hour", () => {

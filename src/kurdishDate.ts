@@ -472,7 +472,7 @@ export default class KurdishDate {
         if (inputString) {
             return inputString.replace(formattingTokens, replaceFunction);
         } else {
-            inputString = "YYYY-MM-DD HH:mm:ss a";
+            inputString = "YYYY-MM-DDTHH:mm:ssZ";
             return inputString.replace(formattingTokens, replaceFunction);
         }
     }

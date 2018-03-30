@@ -17,7 +17,7 @@ yarn add kurdish-date --dev
 <script src="node_modules/kurdish-date/lib/kurdishDate.js" type="text/javascript"></script>
 <script src="node_modules/kurdish-date/lib/declarations.js" type="text/javascript"></script>
 <script type="text/javascript">
-    var date = new kurdishDate().toLocale(LocaleType.en).format();  // "2718-01-17 11:20:25 am" //
+    var date = new kurdishDate().toLocale(LocaleType.en).format();  // "2718-01-17T11:20:25+03:30" //
 </script>
 ```
 ## Webpack
@@ -63,12 +63,12 @@ Change locale globally:
  
 ```javascript
 KurdishDate.toLocale(LocaleType.en);
-new KurdishDate([2718, 1, 17]).format();       // "2718-01-17 00:00:00 am"
+new KurdishDate([2718, 1, 17]).format();       // "2718-01-17T00:00:00+03:30"
 new KurdishDate([2718, 1, 17]).format("dddd"); // "Friday"
 new KurdishDate([2718, 1, 17]).format("MMMM"); // "Xakelêw"
 
 KurdishDate.toLocale(LocaleType.ku);
-new KurdishDate([2718, 1, 17]).format();       // "٢٧١٨-٠١-١٧ ٠٠:٠٠:٠٠ ب.ن"
+new KurdishDate([2718, 1, 17]).format();       // "٢٧١٨-٠١-١٧T٠٠:٠٠:٠٠+٠٣:٣٠"
 new KurdishDate([2718, 1, 17]).format("dddd"); // "هه‌ینی"
 new KurdishDate([2718, 1, 17]).format("MMMM"); // "خاکه‌لێوه"
 
@@ -78,12 +78,12 @@ or change locale on instance:
 
 
 ```javascript
-new KurdishDate([2718, 1, 17]).toLocale(LocaleType.en).format();       // "2718-01-17 00:00:00 am"
+new KurdishDate([2718, 1, 17]).toLocale(LocaleType.en).format();       // "2718-01-17T00:00:00+03:30"
 new KurdishDate([2718, 1, 17]).toLocale(LocaleType.en).format("dddd"); // "Friday"
 new KurdishDate([2718, 1, 17]).toLocale(LocaleType.en).format("MMMM"); // "Xakelêw"
 
 KurdishDate.toCalendar(CalendarType.Gregorian);
-new KurdishDate([2718, 1, 17]).toLocale(LocaleType.ku).format(); // "٢٧١٨-٠١-١٧ ٠٠:٠٠:٠٠ ب.ن"
+new KurdishDate([2718, 1, 17]).toLocale(LocaleType.ku).format();       // "٢٧١٨-٠١-١٧T٠٠:٠٠:٠٠+٠٣:٣٠"
 new KurdishDate([2718, 1, 17]).toLocale(LocaleType.ku).format('dddd'); // "هه‌ینی"
 new KurdishDate([2718, 1, 17]).toLocale(LocaleType.ku).format('MMMM'); // "خاکه‌لێوه"
 
@@ -461,7 +461,7 @@ This is the most robust display option. It takes a string of tokens and replaces
 
 ### Default format
 
-ISO8601 format ```YYYY-MM-DD HH:mm:ss a``` => "٢٧١٨-٠١-٢١ ٠٠:٠٠:٠٠ ب.ن"
+ISO8601 format ```YYYY-MM-DDTHH:mm:ssZ```` => "٢٧١٨-٠١-٢١ ٠٠:٠٠:٠٠ ب.ن"
 
 
 ### Unix Offset (milliseconds)
@@ -474,7 +474,7 @@ new KurdishDate().valueOf();
 
 ```javascript
 new KurdishDate(1318781876406).valueOf(); // 1318781876406
-new KurdishDate(1318781876406).format(); // "٢٧١١-٠٧-٢٤ ١٩:٤٧:٥٦ د.ن"
+new KurdishDate(1318781876406).format(); // "٢٧١١-٠٧-٢٤T١٩:٤٧:٥٦+٠٣:٣٠"
 ```
 
 To get a Unix timestamp (the number of seconds since the epoch) from a ```KurdishDate``` , use ```KurdishDate#unix``` .

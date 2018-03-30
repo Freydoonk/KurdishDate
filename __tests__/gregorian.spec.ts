@@ -30,7 +30,7 @@ describe("gregorianDate Convert function", () => {
   });
 
   it("gregorianDate format", () => {
-    expect(gregorianDate.format()).toBe("2018-04-10 00:00:00 am");
+    expect(gregorianDate.format()).toBe("2018-04-10T00:00:00+04:30");
   });
 
   it("gregorianDate format(X)", () => {
@@ -82,7 +82,7 @@ describe("gregorianDate Convert function", () => {
   });
 
   it("gregorianDate toUtc().format()", () => {
-    expect(gregorianDate.toUtc().format()).toBe("2018-04-09 19:30:00 pm");
+    expect(gregorianDate.toUtc().format()).toBe("2018-04-09T19:30:00+04:30");
   });
 
   it("gregorianDate firstWeekDayOfMonth()", () => {
@@ -90,13 +90,13 @@ describe("gregorianDate Convert function", () => {
       .toBe(1);
   });
 
-  it("gregorianDate toLocale(LocaleType.en).format()", () => {
+  it("gregorianDate toLocale(LocaleType.fa).format()", () => {
     expect(gregorianDate.toLocale(LocaleType.fa).format())
-      .toBe("۲۰۱۸-۰۴-۰۹ ۱۹:۳۰:۰۰ ب.ظ");
+      .toBe("۲۰۱۸-۰۴-۰۹T۱۹:۳۰:۰۰+۰۴:۳۰");
   });
 
   it("gregorianDate toCalendar(CalendarType.Gregorian).format()", () => {
     expect(gregorianDate.toCalendar(CalendarType.Kurdish).format())
-      .toBe("۲۷۱۸-۰۱-۲۰ ۱۹:۳۰:۰۰ ب.ظ");
+      .toBe("۲۷۱۸-۰۱-۲۰T۱۹:۳۰:۰۰+۰۴:۳۰");
   });
 });

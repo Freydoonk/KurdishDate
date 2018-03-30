@@ -30,7 +30,7 @@ describe("islamicDate Convert function", () => {
   });
 
   it("islamicDate format", () => {
-    expect(islamicDate.format()).toBe("۱۴۳۹-۰۷-۲۴ ۰۰:۰۰:۰۰ ق.ظ");
+    expect(islamicDate.format()).toBe("۱۴۳۹-۰۷-۲۴T۰۰:۰۰:۰۰+۰۴:۳۰");
   });
 
   it("islamicDate format(X)", () => {
@@ -82,7 +82,7 @@ describe("islamicDate Convert function", () => {
   });
 
   it("islamicDate toUtc().format()", () => {
-    expect(islamicDate.toUtc().format()).toBe("۱۴۳۹-۰۷-۲۳ ۱۹:۳۰:۰۰ ب.ظ");
+    expect(islamicDate.toUtc().format()).toBe("۱۴۳۹-۰۷-۲۳T۱۹:۳۰:۰۰+۰۴:۳۰");
   });
 
   it("islamicDate firstWeekDayOfMonth()", () => {
@@ -92,11 +92,11 @@ describe("islamicDate Convert function", () => {
 
   it("islamicDate toLocale(LocaleType.en).format()", () => {
     expect(islamicDate.toLocale(LocaleType.en).format())
-      .toBe("1439-07-23 19:30:00 pm");
+      .toBe("1439-07-23T19:30:00+04:30");
   });
 
   it("islamicDate toCalendar(CalendarType.Gregorian).format()", () => {
     expect(islamicDate.toCalendar(CalendarType.Gregorian).format())
-      .toBe("2018-04-09 19:30:00 pm");
+      .toBe("2018-04-09T19:30:00+04:30");
   });
 });
