@@ -18,9 +18,9 @@
     "noImplicitThis": false,
     "strictNullChecks": false,
     "declaration": false,
+    "outDir": "lib"
   },
   "include": [
-    "src/**/*",
-    "__tests__/**/*"
+    "src/**/*"
   ]
 }

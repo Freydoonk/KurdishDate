@@ -10,3 +10,14 @@ export enum LocaleType {
     fa,
     en,
 }
+
+export enum DatePartKey {
+    Year,
+    Month,
+    Day,
+    Hour,
+    Minute,
+    Second,
+    Millisecond,
+    Week,
+}

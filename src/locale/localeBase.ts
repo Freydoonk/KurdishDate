@@ -1,10 +1,10 @@
-import DateKeyword from "./dateKeyword";
+import RangeName from "../rangeName";
 
 export default abstract class LocaleBase {
-    public gregorian: DateKeyword;
-    public persian: DateKeyword;
-    public kurdish: DateKeyword;
-    public islamic: DateKeyword;
+    public gregorian: RangeName;
+    public persian: RangeName;
+    public kurdish: RangeName;
+    public islamic: RangeName;
     public numbers: string[];
     public amPm: string[];
 

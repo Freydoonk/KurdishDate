@@ -1,4 +1,4 @@
-export default class DateKeyword {
+export default class RangeName {
     public months: string[];
     public monthsShort: string[];
     public weekdays: string[];

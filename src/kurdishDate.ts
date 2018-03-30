@@ -1,12 +1,12 @@
 import CurrentDateInfo from "./currentDateInfo";
 import DateConverter from "./dateConverter";
 import DateInfo from "./dateInfo";
-import { CalendarType, LocaleType } from "./declarations";
-import DateKeyword from "./locale/dateKeyword";
+import { CalendarType, DatePartKey, LocaleType } from "./declarations";
 import En from "./locale/en";
 import Fa from "./locale/fa";
 import Ku from "./locale/ku";
 import LocaleBase from "./locale/localeBase";
+import RangeName from "./rangeName";
 
 export default class KurdishDate {
     public static toCalendar(calendarType: CalendarType): typeof KurdishDate {
@@ -31,7 +31,7 @@ export default class KurdishDate {
     private currentDate: CurrentDateInfo;
     private formatDigit: boolean;
 
-    constructor(input: any) {
+    constructor(input?: any) {
         this.calendarType = KurdishDate.calendarType;
         this.currentDate = new CurrentDateInfo();
         this.formatDigit = true;
@@ -96,10 +96,6 @@ export default class KurdishDate {
         return new syncedKurdishDate(this.currentDate.primaryDate);
     }
 
-    public years(input: number): number {
-        return this.year(input);
-    }
-
     public year(year?: number): number {
         if (year || year === 0) {
             this.setupFromDateArray([
@@ -129,18 +125,10 @@ export default class KurdishDate {
     }
 
     public day(): number {
-        return this.days();
-    }
-
-    public days(): number {
         return this.calendar().weekday;
     }
 
     public date(date?: number): number {
-        return this.dates(date);
-    }
-
-    public dates(date?: number): number {
         if (date || date === 0) {
             this.setupFromDateArray([
                 this.year(),
@@ -153,10 +141,6 @@ export default class KurdishDate {
     }
 
     public hour(hour?: number): number {
-        return this.hours(hour);
-    }
-
-    public hours(hour?: number): number {
         if (hour || hour === 0) {
             this.setupFromDateArray([
                 this.year(),
@@ -170,10 +154,6 @@ export default class KurdishDate {
     }
 
     public minute(minute?: number): number {
-        return this.minutes(minute);
-    }
-
-    public minutes(minute?: number): number {
         if (minute || minute === 0) {
             this.setupFromDateArray([
                 this.year(),
@@ -188,10 +168,6 @@ export default class KurdishDate {
     }
 
     public second(second?: number): number {
-        return this.seconds(second);
-    }
-
-    public seconds(second?: number): number {
         if (second || second === 0) {
             this.setupFromDateArray([
                 this.year(),
@@ -207,10 +183,6 @@ export default class KurdishDate {
     }
 
     public millisecond(millisecond?: number): number {
-        return this.milliseconds(millisecond);
-    }
-
-    public milliseconds(millisecond?: number): number {
         if (millisecond || millisecond === 0) {
             this.setupFromDateArray([
                 this.year(),
@@ -290,13 +262,13 @@ export default class KurdishDate {
 
     public format(inputString?: string): string {
         // tslint:disable-next-line:max-line-length
-        const formattingTokens = /([[^[]*])|(\\)?(Mo|MM?M?M?|Do|DD?D?D?|dddddd?|ddddd?|dddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|X|LT|ll?l?l?|LL?L?L?)/g;
+        const formattingTokens = /([[^[]*])|(\\)?(Mo|MM?M?M?|Do|DD?D?D?|ddddd?|dddd?|ddd?|do?|w[o|w]?|YYYY|YY|a|A|hh?|HH?|mm?|ss?|SS?S?|zz?|ZZ?|X|LT|ll?l?l?|LL?L?L?)/g;
         const info = {
             year: this.year(),
             month: this.month(),
-            hour: this.hours(),
-            minute: this.minutes(),
-            second: this.seconds(),
+            hour: this.hour(),
+            minute: this.minute(),
+            second: this.second(),
             date: this.date(),
             timezone: this.timezone(),
             unix: this.unix(),
@@ -354,17 +326,23 @@ export default class KurdishDate {
 
                 // Return day Of Month
                 case ("DDD"): {
-                    const t = this.startOf("year");
-                    return checkLocaleDigit(this.leftZeroPad(this.diff(t, "days"), 3));
+                    const t = this.startOf(DatePartKey.Year);
+                    return checkLocaleDigit(this.leftZeroPad(this.diff(t, DatePartKey.Day), 3));
                 }
+
                 // Return Day of Year
                 case ("DDDD"): {
-                    const t = this.startOf("year");
-                    return checkLocaleDigit(this.leftZeroPad(this.diff(t, "days"), 3));
+                    const t = this.startOf(DatePartKey.Year);
+                    return checkLocaleDigit(this.leftZeroPad(this.diff(t, DatePartKey.Day), 3));
                 }
+
                 // Return day Of week
                 case ("d"):
                     return checkLocaleDigit(this.calendar().weekday);
+
+                // Return Day Name
+                case ("dd"):
+                    return this.weekNameMin(this.calendar().weekday);
 
                 // Return week day name abbr
                 case ("ddd"):
@@ -373,21 +351,18 @@ export default class KurdishDate {
                 case ("dddd"):
                     return this.weekName(this.calendar().weekday);
 
-                // Return Day Name
-                case ("dddddd"):
-                    return this.weekNameMin(this.calendar().weekday);
-
-                // Return Day Name
+                // Return Week Of Year
                 case ("w"): {
-                    const t = this.startOf("year");
-                    const day = this.diff(t, "days") / 7 + 1;
+                    const t = this.startOf(DatePartKey.Year);
+                    const day = Math.floor(this.diff(t, DatePartKey.Day) / 7) + 1;
                     return checkLocaleDigit(day);
                 }
 
-                // Return Day Name
+                // Return Week Of Year
                 case ("ww"): {
-                    const t = this.startOf("year");
-                    const day = this.leftZeroPad(this.diff(t, "days") / 7 + 1, 2);
+                    const t = this.startOf(DatePartKey.Year);
+                    const weekOfYear = Math.floor(this.diff(t, DatePartKey.Day) / 7) + 1;
+                    const day = this.leftZeroPad(weekOfYear, 2);
                     return checkLocaleDigit(day);
                 }
 
@@ -502,6 +477,179 @@ export default class KurdishDate {
         }
     }
 
+    public startOf(key: DatePartKey): KurdishDate {
+        const syncedKurdishDate = this.getSyncedClass();
+        let startDate: KurdishDate;
+
+        switch (key) {
+            case DatePartKey.Year:
+                startDate = new syncedKurdishDate([this.year(), 1, 1]);
+                break;
+
+            case DatePartKey.Month:
+                startDate = new syncedKurdishDate([this.year(), this.month(), 1]);
+                break;
+
+            case DatePartKey.Day:
+                startDate = new syncedKurdishDate([this.year(), this.month(), this.date(), 0, 0, 0]);
+                break;
+
+            case DatePartKey.Hour:
+                startDate = new syncedKurdishDate([this.year(), this.month(), this.date(), this.hour(), 0, 0]);
+                break;
+
+            case DatePartKey.Minute:
+                startDate = new syncedKurdishDate([this.year(), this.month(), this.date()
+                    , this.hour(), this.minute(), 0]);
+                break;
+
+            case DatePartKey.Second:
+                startDate = new syncedKurdishDate([this.year(), this.month(), this.date()
+                    , this.hour(), this.minute(), this.second()]);
+                break;
+
+            case DatePartKey.Millisecond:
+                startDate = this.clone();
+                break;
+
+            case DatePartKey.Week:
+                startDate = new syncedKurdishDate([this.year(), this.month()
+                    , this.date() - (this.calendar().weekday - 1)]);
+                break;
+
+            default:
+                startDate = this.clone();
+                break;
+        }
+
+        return startDate;
+    }
+
+    public endOf(key: DatePartKey): KurdishDate {
+        const syncedKurdishDate = this.getSyncedClass();
+        let endDate: KurdishDate;
+
+        switch (key) {
+            case DatePartKey.Year:
+                const days = this.isLeapYear() ? 30 : 29;
+                endDate = new syncedKurdishDate([this.year(), 12, days, 23, 59, 59]);
+                break;
+
+            case DatePartKey.Month:
+                const monthDays = this.daysInMonth(this.year(), this.month());
+                endDate = new syncedKurdishDate([this.year(), this.month(), monthDays, 23, 59, 59]);
+                break;
+
+            case DatePartKey.Day:
+                endDate = new syncedKurdishDate([this.year(), this.month(), this.date(), 23, 59, 59]);
+                break;
+
+            case DatePartKey.Hour:
+                endDate = new syncedKurdishDate([this.year(), this.month(), this.date(), this.hour(), 59, 59]);
+                break;
+
+            case DatePartKey.Minute:
+                endDate = new syncedKurdishDate([this.year(), this.month(), this.date()
+                    , this.hour(), this.minute(), 59]);
+                break;
+
+            case DatePartKey.Second:
+                endDate = new syncedKurdishDate([this.year(), this.month(), this.date()
+                    , this.hour(), this.minute(), this.second()]);
+                break;
+
+            case DatePartKey.Millisecond:
+                endDate = this.clone();
+                break;
+
+            case DatePartKey.Week:
+                const weekDayNumber = this.calendar().weekday;
+                endDate = new syncedKurdishDate([this.year(), this.month(), this.date() + (7 - weekDayNumber)]);
+                break;
+
+            default:
+                endDate = this.clone();
+                break;
+        }
+
+        return endDate;
+    }
+
+    public add(key: DatePartKey, value: number): KurdishDate {
+        switch (key) {
+            case DatePartKey.Year:
+                this.year(value + this.year());
+                break;
+
+            case DatePartKey.Month:
+                const oldDate = this.date();
+                const newMonth = this.month() + value;
+                const thisMonthDaysCount = this.daysInMonth(this.year(), newMonth);
+                if (oldDate >= thisMonthDaysCount) {
+                    this.date(thisMonthDaysCount);
+                }
+                this.month(newMonth);
+                break;
+
+            case DatePartKey.Day:
+                const oldHour = this.hour();
+                const newDateFromDay = this.valueOf() + (value * 24 * 60 * 60 * 1000);
+                this.unix(newDateFromDay / 1000);
+                this.hour(oldHour);
+                break;
+
+            case DatePartKey.Hour:
+                const newDateFromHour = this.valueOf() + (value * 60 * 60 * 1000);
+                this.unix(newDateFromHour / 1000);
+                break;
+
+            case DatePartKey.Minute:
+                const newDateFromMinute = this.valueOf() + (value * 60 * 1000);
+                this.unix(newDateFromMinute / 1000);
+                break;
+
+            case DatePartKey.Second:
+                const newDateFromSecond = this.valueOf() + (value * 1000);
+                this.unix(newDateFromSecond / 1000);
+                break;
+
+            case DatePartKey.Millisecond:
+                const newMillisecond = this.valueOf() + value;
+                this.unix(newMillisecond / 1000);
+                break;
+
+            case DatePartKey.Week:
+                this.add(DatePartKey.Day, value * 7);
+                break;
+        }
+
+        return this;
+    }
+
+    public subtract(key: DatePartKey, value: number): KurdishDate {
+        return this.add(key, -1 * value);
+    }
+
+    public isLeapYear() {
+        return this.calendar().isLeap;
+    }
+
+    public getRangeName(): RangeName {
+        switch (this.calendarType) {
+            case CalendarType.Kurdish:
+                return this.locale.kurdish;
+
+            case CalendarType.Persian:
+                return this.locale.persian;
+
+            case CalendarType.Islamic:
+                return this.locale.islamic;
+
+            default:
+                return this.locale.gregorian;
+        }
+    }
+
     private setup(input: any): any {
         // Convert Any thing to Gregorian Date
         if (this.isDate(input)) {
@@ -558,7 +706,7 @@ export default class KurdishDate {
         return syncedKurdishDate;
     }
 
-    private diff(input: KurdishDate, key: string, asFloat: boolean = false): number {
+    private diff(input: KurdishDate, key: DatePartKey, asFloat: boolean = false): number {
         const zoneDiff = 0;
         const diff = this.currentDate.primaryDate.getTime() - input.toDate().getTime() - zoneDiff;
         const yearDiff = this.year() - input.year();
@@ -566,39 +714,36 @@ export default class KurdishDate {
         const dayDiff = (this.date() - input.date()) * -1;
         let output: number;
 
-        switch (key.toLowerCase()) {
-            case "years":
-            case "year":
+        switch (key) {
+            case DatePartKey.Year:
                 output = yearDiff + (monthDiff + dayDiff / 30) / 12;
                 break;
 
-            case "months":
-            case "month":
+            case DatePartKey.Month:
                 output = yearDiff * 12 + monthDiff + dayDiff / 30;
                 break;
 
-            case "days":
-            case "day":
+            case DatePartKey.Day:
                 output = diff / 864e5; // 1000 * 60 * 60 * 24
                 break;
 
-            case "hours":
-            case "hour":
+            case DatePartKey.Hour:
                 output = diff / 36e5; // 1000 * 60 * 60
                 break;
 
-            case "minutes":
-            case "minute":
+            case DatePartKey.Minute:
                 output = diff / 6e4; // 1000 * 60
                 break;
 
-            case "seconds":
-            case "second":
+            case DatePartKey.Second:
                 output = diff / 1e3; // 1000
                 break;
 
-            case "weeks":
-            case "week":
+            case DatePartKey.Millisecond:
+                output = diff;
+                break;
+
+            case DatePartKey.Week:
                 output = diff / 6048e5; // 1000 * 60 * 60 * 24 * 7
                 break;
 
@@ -612,110 +757,6 @@ export default class KurdishDate {
         }
         return asFloat ? output : Math.round(output);
     }
-
-    private startOf(key: string): KurdishDate {
-        const syncedKurdishDate = this.getSyncedClass();
-        let startDate: KurdishDate;
-
-        switch (key.toLowerCase()) {
-            case "years":
-            case "year":
-                startDate = new syncedKurdishDate([this.year(), 1, 1]);
-                break;
-
-            case "months":
-            case "month":
-                startDate = new syncedKurdishDate([this.year(), this.month(), 1]);
-                break;
-
-            case "days":
-            case "day":
-                startDate = new syncedKurdishDate([this.year(), this.month(), this.date(), 0, 0, 0]);
-                break;
-
-            case "hours":
-            case "hour":
-                startDate = new syncedKurdishDate([this.year(), this.month(), this.date(), this.hours(), 0, 0]);
-                break;
-
-            case "minutes":
-            case "minute":
-                startDate = new syncedKurdishDate([this.year(), this.month(), this.date()
-                    , this.hours(), this.minutes(), 0]);
-                break;
-
-            case "seconds":
-            case "second":
-                startDate = new syncedKurdishDate([this.year(), this.month(), this.date()
-                    , this.hours(), this.minutes(), this.seconds()]);
-                break;
-
-            case "weeks":
-            case "week":
-                startDate = new syncedKurdishDate([this.year(), this.month()
-                    , this.date() - (this.calendar().weekday - 1)]);
-                break;
-
-            default:
-                startDate = this.clone();
-                break;
-        }
-
-        return startDate;
-    }
-
-    // private endOf(key: string): KurdishDate {
-    //     const syncedKurdishDate = this.getSyncedClass();
-    //     let endDate: KurdishDate;
-
-    //     switch (key.toLowerCase()) {
-    //         case "years":
-    //         case "year":
-    //             const days = this.calendar().isLeap ? 30 : 29;
-    //             endDate = new syncedKurdishDate([this.year(), 12, days, 23, 59, 59]);
-    //             break;
-
-    //         case "months":
-    //         case "month":
-    //             const monthDays = this.daysInMonth(this.year(), this.month());
-    //             endDate = new syncedKurdishDate([this.year(), this.month(), monthDays, 23, 59, 59]);
-    //             break;
-
-    //         case "days":
-    //         case "day":
-    //             endDate = new syncedKurdishDate([this.year(), this.month(), this.date(), 23, 59, 59]);
-    //             break;
-
-    //         case "hours":
-    //         case "hour":
-    //             endDate = new syncedKurdishDate([this.year(), this.month(), this.date(), this.hours(), 59, 59]);
-    //             break;
-
-    //         case "minutes":
-    //         case "minute":
-    //             endDate = new syncedKurdishDate([this.year(), this.month(), this.date()
-    //                 , this.hours(), this.minutes(), 59]);
-    //             break;
-
-    //         case "seconds":
-    //         case "second":
-    //             endDate = new syncedKurdishDate([this.year(), this.month(), this.date()
-    //                 , this.hours(), this.minutes(), this.seconds()]);
-    //             break;
-
-    //         case "weeks":
-    //         case "week":
-    //             const weekDayNumber = this.calendar().weekday;
-    //             endDate = new syncedKurdishDate([this.year(), this.month(), this.date() + (7 - weekDayNumber)]);
-    //             break;
-
-    //         default:
-    //             endDate = this.clone();
-    //             break;
-    //     }
-
-    //     return endDate;
-    // }
 
     private setupFromGregorianDate(gregorianDate: Date): void {
         this.dateConverter.calcGregorian(
@@ -751,40 +792,24 @@ export default class KurdishDate {
         }
     }
 
-    private getLocaleDateKeyword(): DateKeyword {
-        switch (this.calendarType) {
-            case CalendarType.Kurdish:
-                return this.locale.kurdish;
-
-            case CalendarType.Persian:
-                return this.locale.persian;
-
-            case CalendarType.Islamic:
-                return this.locale.islamic;
-
-            default:
-                return this.locale.gregorian;
-        }
-    }
-
     private weekName(input): string {
-        return this.getLocaleDateKeyword().weekdays[input - 1];
+        return this.getRangeName().weekdays[input - 1];
     }
 
     private weekNameShort(input): string {
-        return this.getLocaleDateKeyword().weekdaysShort[input - 1];
+        return this.getRangeName().weekdaysShort[input - 1];
     }
 
     private weekNameMin(input): string {
-        return this.getLocaleDateKeyword().weekdaysMin[input - 1];
+        return this.getRangeName().weekdaysMin[input - 1];
     }
 
     private monthName(input): string {
-        return this.getLocaleDateKeyword().months[input - 1];
+        return this.getRangeName().months[input - 1];
     }
 
     private monthNameShort(input): string {
-        return this.getLocaleDateKeyword().monthsShort[input - 1];
+        return this.getRangeName().monthsShort[input - 1];
     }
 
     private calendar(): DateInfo {
