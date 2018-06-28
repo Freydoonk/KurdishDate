@@ -17,12 +17,13 @@ yarn add kurdish-date --dev
 <script src="node_modules/kurdish-date/lib/kurdishDate.js" type="text/javascript"></script>
 <script src="node_modules/kurdish-date/lib/declarations.js" type="text/javascript"></script>
 <script type="text/javascript">
-    var date = new kurdishDate().toLocale(LocaleType.en).format();  // "2718-01-17T11:20:25+03:30" //
+    var date = new kurdishDate.defualt().toLocale(LocaleType.en).format();  // "2718-01-17T11:20:25+03:30" //
 </script>
 ```
 ## Webpack
 ```javascript
-require('kurdishDate-date');
+var kurdishDate = require("kurdish-date")
+var now = new kurdishDate.default();
 ```
 
 ## Typescript
