@@ -125,7 +125,7 @@ export default class KurdishDate {
     }
 
     public day(): number {
-        return this.calendar().weekday;
+        return this.calendar().day;
     }
 
     public date(date?: number): number {
